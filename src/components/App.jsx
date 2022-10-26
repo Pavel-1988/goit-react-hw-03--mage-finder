@@ -2,10 +2,15 @@ import React from 'react';
 // import { Component } from 'react';
 import { Container } from './App.styled'
 import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { Searchbar } from './Searchbar/Searchbar'
-// import { Button } from './Button/Button'
-// import {Loader} from './Loader/Loader'
+import { ImageGallery } from './ImageGallery/ImageGallery'
+import { Button } from './Button/Button'
+import {Loader} from './Loader/Loader'
+
+
+
 
 export class App extends React.Component {
  
@@ -26,12 +31,39 @@ export class App extends React.Component {
     }
   };
 
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+      status: 'pending',
+    }));
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    
+  }
+
   render() {
+
+    const { status, image, imgName } = this.state;
+
     return (
       <Container>
         <ToastContainer autoClose={3000} />
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {/* <Button /> */}
+        {status === 'pending' && (
+          <Container>
+            <Loader />
+          </Container>
+        )}
+        {image.length > 0 && (
+          <Container>
+            <ImageGallery images={image} imgAlt={imgName} />
+            {status === 'pending' ? (<Loader />)
+              : (
+              <Button onClick={this.loadMore} />
+            )}
+          </Container>
+        )}
       </Container>
   );
   }

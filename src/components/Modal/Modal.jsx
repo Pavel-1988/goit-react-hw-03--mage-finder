@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import { createPortal } from 'react-dom';
 import { Overlay, Window } from './Modal.styled';
 import PropTypes from 'prop-types';
@@ -17,9 +17,9 @@ export default class Modal extends Component {
   }
 
   handleKeyDown =  e => {
-      if (e.code === 'Escape') {
-        this.props.onClose();
-      }
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
   }
 
   handleBackdropClick = event => {

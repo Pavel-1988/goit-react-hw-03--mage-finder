@@ -1,14 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ImageGalleryListItem } from './ImageGalleryItem.styled';
+import Modal from '../Modal/Modal';
 
 
-export class Searchbar extends Component {
+export class ImageGalleryItem extends Component {
+
+  state = {
+    showModal: false,
+  };
+
+    toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
 
   render() {
+    const { webformatURL, largeImageURL, imgAlt } = this.props;
     return (
+       <ImageGalleryListItem onClick={this.toggleModal}>
+        <img src={webformatURL} alt={imgAlt} />
+        {this.state.showModal && (
+          <Modal onClose={this.toggleModal}>
+            <img src={largeImageURL} alt={imgAlt} />
+          </Modal>
+        )}
+      </ImageGalleryListItem>
 
     )
   }
 }
 
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  imgAlt: PropTypes.string.isRequired,
+};
