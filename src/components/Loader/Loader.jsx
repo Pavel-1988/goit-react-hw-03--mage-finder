@@ -1,7 +1,7 @@
 import { ColorRing } from 'react-loader-spinner';
-import {Wrapper} from './Loader.styled';
+import { Wrapper } from './Loader.styled';
 
-export const Loader = () => (
+const Loader = () => (
   <Wrapper>
     <ColorRing
       visible={true}
@@ -14,3 +14,5 @@ export const Loader = () => (
     />
   </Wrapper>
 );
+
+export default Loader;

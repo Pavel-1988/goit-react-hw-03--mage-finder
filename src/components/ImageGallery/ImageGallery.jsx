@@ -1,22 +1,21 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { ImageGalleryList } from './ImageGallery.styled'
-import {ImageGalleryItem} from '../ImageGalleryItem/ImageGalleryItem'
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem'
 
 
-export const ImageGallery = ({images, imgAlt}) => {
+const ImageGallery = ({images, imgAlt}) => {
   
   return (
-        <ImageGalleryList>
-          {images.map(({ webformatURL, id, largeImageURL }) => (
-            <ImageGalleryItem
-              key={id}
-              webformatURL={webformatURL}
-              largeImageURL={largeImageURL}
-              imgAlt={imgAlt}
-            />
-          ))}
-        </ImageGalleryList>
+    <ImageGalleryList>
+      {images.map(({ webformatURL, id, largeImageURL }) => (
+        <ImageGalleryItem
+          key={id}
+          webformatURL={webformatURL}
+          largeImageURL={largeImageURL}
+          imgAlt={imgAlt}
+        />
+      ))}
+    </ImageGalleryList>
   )
 }
 
@@ -31,3 +30,5 @@ ImageGallery.propTypes = {
   ).isRequired,
   imgAlt: PropTypes.string.isRequired,
 };
+
+export default ImageGallery;

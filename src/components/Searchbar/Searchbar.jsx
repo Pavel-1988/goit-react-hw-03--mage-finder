@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
-// import { Component } from 'react';
-import {SearcContainer,SearchForm, SearchInput} from './Searchbar.styled'
+import React from 'react';
+import { Formik } from 'formik';
+import { FcSearch } from 'react-icons/fc';
+import { SearchBar, SearchForm, SearchInput } from './Searchbar.styled';
+import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
 
+const initialValues = {
+  imgName: '',
+};
 
-// import { Report } from 'notiflix/build/notiflix-report-aio';
+const validationSchema = Yup.string({
+  imgName: Yup.string().required('Please enter your search query'),
+});
 
-export class Searchbar extends Component {
-  state = {
-    imgName: ''
-  };
-
-  // handleChange = e => {
-  //   const { imgName, value  } = e.currentTarget;
-  //   this.setState({ [imgName]:value });
-  // };
-
-  //================================================================
+class Searchbar extends React.Component {
+  
   handleSubmit = (values, { resetForm }) => {
     if (values.imgName.trim() === '') {
       return toast.error('Please enter your search query');
@@ -26,53 +24,89 @@ export class Searchbar extends Component {
     this.props.onSubmit(values.imgName);
     resetForm();
   };
-  //==========================================================
-
-  //============низ========//
-  //  handleSubmit = e => {
-  //   if (e.imgName.trim() === '') {
-  //     return Report.warning('Please enter your search query');
-  //   }
-  //   this.props.onSubmit(e.imgName);
-  //   this.reset();
-  // };
-  //============вверх========//
-
-  //===========================низ
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   this.props.onSubmit(this.state);
-  //   console.log(this.state)
-  //   this.reset();
-  // };
-  //===========================нвверх
-
-  reset = () => {
-    this.setState({imgName: ''});
-  };
 
   render() {
     return (
-      <SearcContainer >
-        <SearchForm onSubmit={this.handleSubmit}>
-          <button type="submit">
-            <span >Search</span>
-          </button>
+      <SearchBar>
+        <Formik
+          validationSchema={validationSchema}
+          initialValues={initialValues}
+          onSubmit={this.handleSubmit}
+        >
+          <SearchForm>
+            <button aria-label="search" type="submit">
+              <FcSearch size="23px" />
+            </button>
 
-          <SearchInput
-            name="imgName"
-            type="text"
-            autocomplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </SearchForm>
-      </SearcContainer>
-
-    )
+            <SearchInput
+              name="imgName"
+              type="text"
+              placeholder="Search images and photos"
+            />
+          </SearchForm>
+        </Formik>
+      </SearchBar>
+    );
   }
 }
 
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+export default Searchbar;
+
+
+
+
+//==============================================================================
+// import React from 'react';
+
+// import {SearcContainer,SearchForm, SearchInput} from './Searchbar.styled'
+// import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import PropTypes from 'prop-types';
+
+
+//  class Searchbar extends React.Component {
+//   state = {
+//     imgName: ''
+//   };
+
+
+//   handleSubmit = (values, { resetForm }) => {
+//     if (values.imgName.trim() === '') {
+//       return toast.error('Please enter your search query');
+//     }
+//     this.props.onSubmit(values.imgName);
+//     resetForm();
+//   };
+
+
+//   render() {
+//     return (
+//       <SearcContainer >
+//         <SearchForm onSubmit={this.handleSubmit}>
+//           <button type="submit">
+//             <span >Search</span>
+//           </button>
+
+//           <SearchInput
+//             name="imgName"
+//             type="text"
+//             autocomplete="off"
+//             autoFocus
+//             placeholder="Search images and photos"
+//           />
+//         </SearchForm>
+//       </SearcContainer>
+
+//     )
+//   }
+// }
+
+// Searchbar.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
+
+// export default Searchbar;

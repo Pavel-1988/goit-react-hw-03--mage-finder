@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default class Modal extends Component {
+class Modal extends Component {
   
    componentDidMount() {
      window.addEventListener('keydown',this.handleKeyDown);
@@ -22,8 +22,9 @@ export default class Modal extends Component {
     }
   }
 
-  handleBackdropClick = event => {
-    if (event.currentTarget === event.target) {
+  handleBackdropClick = e => {
+    if (e.target !== e.currentTarget) {
+      console.log('handleOverlayClick');
       this.props.onClose();
     }
   };
@@ -45,3 +46,5 @@ Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
 };
+
+export default Modal;

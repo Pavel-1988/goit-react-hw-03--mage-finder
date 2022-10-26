@@ -4,15 +4,15 @@ import { Container } from './App.styled'
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
-import { Searchbar } from './Searchbar/Searchbar'
-import { ImageGallery } from './ImageGallery/ImageGallery'
-import { Button } from './Button/Button'
-import {Loader} from './Loader/Loader'
+import Searchbar  from './Searchbar/Searchbar'
+import ImageGallery from './ImageGallery/ImageGallery'
+import  Button  from './Button/Button'
+import Loader from './Loader/Loader'
 
 
 
 
-export class App extends React.Component {
+class App extends React.Component {
  
   state = {
     image: [],
@@ -39,6 +39,36 @@ export class App extends React.Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.page !== this.state.page ||
+      prevState.imgName !== this.state.imgName
+    ) {
+      this.setState({ status: 'pending' });
+    }
+    fetch(`
+    https://pixabay.com/api/?q=${this.state.imgName}&page=${this.state.page}&key=29318386-adfa654ecd5a2c31c35ac8541&image_type=photo&orientation=horizontal&per_page=12
+    `)
+    .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(new Error('Change your search query'));
+    })
+    .then(image => {
+        if (image.totalHits === 0) {
+          this.setState({ status: 'idle' });
+          return toast.error(
+            'Something went wrong. Try changing your search query'
+          );
+        }
+        this.setState(prevState => ({
+          image: [...prevState.image, ...image.hits],
+          status: 'resolved',
+        }));
+    })
+     .catch(error => {
+          return toast.error(error.message);
+        });
     
   }
 
@@ -53,7 +83,7 @@ export class App extends React.Component {
         {status === 'pending' && (
           <Container>
             <Loader />
-          </Container>
+           </Container> 
         )}
         {image.length > 0 && (
           <Container>
@@ -70,7 +100,5 @@ export class App extends React.Component {
  
 };
 
-// //===========pixabay
-// const BASE_URL = 'https://pixabay.com/api/';
-// const KEY = '29318386-adfa654ecd5a2c31c35ac8541';
 
+export default App;

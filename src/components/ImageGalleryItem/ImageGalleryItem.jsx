@@ -4,7 +4,7 @@ import { ImageGalleryListItem } from './ImageGalleryItem.styled';
 import Modal from '../Modal/Modal';
 
 
-export class ImageGalleryItem extends Component {
+class ImageGalleryItem extends Component {
 
   state = {
     showModal: false,
@@ -27,7 +27,6 @@ export class ImageGalleryItem extends Component {
           </Modal>
         )}
       </ImageGalleryListItem>
-
     )
   }
 }
@@ -37,3 +36,5 @@ ImageGalleryItem.propTypes = {
   largeImageURL: PropTypes.string.isRequired,
   imgAlt: PropTypes.string.isRequired,
 };
+
+export default ImageGalleryItem;
