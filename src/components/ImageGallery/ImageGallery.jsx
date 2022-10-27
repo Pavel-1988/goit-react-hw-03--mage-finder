@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-import { ImageGalleryList } from './ImageGallery.styled'
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem'
+import { ImageGalleryList } from './ImageGallery.styled';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
-
-const ImageGallery = ({images, imgAlt}) => {
-  
+const ImageGallery = ({ images, imgAlt }) => {
   return (
     <ImageGalleryList>
       {images.map(({ webformatURL, id, largeImageURL }) => (
@@ -16,8 +14,8 @@ const ImageGallery = ({images, imgAlt}) => {
         />
       ))}
     </ImageGalleryList>
-  )
-}
+  );
+};
 
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(

@@ -16,7 +16,6 @@ const validationSchema = Yup.string({
 });
 
 class Searchbar extends React.Component {
-  
   handleSubmit = (values, { resetForm }) => {
     if (values.imgName.trim() === '') {
       return toast.error('Please enter your search query');
@@ -56,57 +55,3 @@ Searchbar.propTypes = {
 
 export default Searchbar;
 
-
-
-
-//==============================================================================
-// import React from 'react';
-
-// import {SearcContainer,SearchForm, SearchInput} from './Searchbar.styled'
-// import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import PropTypes from 'prop-types';
-
-
-//  class Searchbar extends React.Component {
-//   state = {
-//     imgName: ''
-//   };
-
-
-//   handleSubmit = (values, { resetForm }) => {
-//     if (values.imgName.trim() === '') {
-//       return toast.error('Please enter your search query');
-//     }
-//     this.props.onSubmit(values.imgName);
-//     resetForm();
-//   };
-
-
-//   render() {
-//     return (
-//       <SearcContainer >
-//         <SearchForm onSubmit={this.handleSubmit}>
-//           <button type="submit">
-//             <span >Search</span>
-//           </button>
-
-//           <SearchInput
-//             name="imgName"
-//             type="text"
-//             autocomplete="off"
-//             autoFocus
-//             placeholder="Search images and photos"
-//           />
-//         </SearchForm>
-//       </SearcContainer>
-
-//     )
-//   }
-// }
-
-// Searchbar.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
-
-// export default Searchbar;

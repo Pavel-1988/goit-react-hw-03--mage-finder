@@ -4,7 +4,7 @@ import { Container } from './App.styled'
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
-import Searchbar  from './Searchbar/Searchbar'
+import SearchBar  from './Searchbar/Searchbar'
 import ImageGallery from './ImageGallery/ImageGallery'
 import Button  from './Button/Button'
 import Loader from './Loader/Loader'
@@ -28,7 +28,7 @@ class App extends React.Component {
     }
   };
 
-  loadMore = () => {
+   loadMore = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
       status: 'pending',
@@ -42,7 +42,7 @@ class App extends React.Component {
     ) {
       this.setState({ status: 'pending' });
       fetch(
-        `https://pixabay.com/api/?q=${this.state.imgName}&page=${this.state.page}&key=29318386-adfa654ecd5a2c31c35ac8541&image_type=photo&orientation=horizontal&per_page=12`
+        `https://pixabay.com/api/?q=${this.state.imgName}&page=${this.state.page}&key=29688696-be7a3ad549ffca9d5a732b68f&image_type=photo&orientation=horizontal&per_page=12`
       )
         .then(res => {
           if (res.ok) {
@@ -73,8 +73,8 @@ class App extends React.Component {
 
     return (
       <Container>
-        <ToastContainer autoClose={3000} />
-        <Searchbar onSubmit={this.handleFormSubmit} />
+        <ToastContainer autoClose={2000} />
+        <SearchBar onSubmit={this.handleFormSubmit} />
         {status === 'pending' && (
           <Container>
             <Loader />
