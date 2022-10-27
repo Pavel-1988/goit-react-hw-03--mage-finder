@@ -6,14 +6,11 @@ import { toast } from 'react-toastify';
 
 import Searchbar  from './Searchbar/Searchbar'
 import ImageGallery from './ImageGallery/ImageGallery'
-import  Button  from './Button/Button'
+import Button  from './Button/Button'
 import Loader from './Loader/Loader'
 
 
-
-
 class App extends React.Component {
- 
   state = {
     image: [],
     error: null,
@@ -44,36 +41,34 @@ class App extends React.Component {
       prevState.imgName !== this.state.imgName
     ) {
       this.setState({ status: 'pending' });
-    }
-    fetch(`
-    https://pixabay.com/api/?q=${this.state.imgName}&page=${this.state.page}&key=29318386-adfa654ecd5a2c31c35ac8541&image_type=photo&orientation=horizontal&per_page=12
-    `)
-    .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(new Error('Change your search query'));
-    })
-    .then(image => {
-        if (image.totalHits === 0) {
-          this.setState({ status: 'idle' });
-          return toast.error(
-            'Something went wrong. Try changing your search query'
-          );
-        }
-        this.setState(prevState => ({
-          image: [...prevState.image, ...image.hits],
-          status: 'resolved',
-        }));
-    })
-     .catch(error => {
+      fetch(
+        `https://pixabay.com/api/?q=${this.state.imgName}&page=${this.state.page}&key=29318386-adfa654ecd5a2c31c35ac8541&image_type=photo&orientation=horizontal&per_page=12`
+      )
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          }
+          return Promise.reject(new Error('Change your search query'));
+        })
+        .then(image => {
+          if (image.totalHits === 0) {
+            this.setState({ status: 'idle' });
+            return toast.error(
+              'Something went wrong. Try changing your search query'
+            );
+          }
+          this.setState(prevState => ({
+            image: [...prevState.image, ...image.hits],
+            status: 'resolved',
+          }));
+        })
+        .catch(error => {
           return toast.error(error.message);
         });
-    
+    }
   }
 
   render() {
-
     const { status, image, imgName } = this.state;
 
     return (
@@ -83,22 +78,22 @@ class App extends React.Component {
         {status === 'pending' && (
           <Container>
             <Loader />
-           </Container> 
+          </Container>
         )}
+
         {image.length > 0 && (
           <Container>
             <ImageGallery images={image} imgAlt={imgName} />
-            {status === 'pending' ? (<Loader />)
-              : (
+            {status === 'pending' ? (
+              <Loader />
+            ) : (
               <Button onClick={this.loadMore} />
             )}
           </Container>
         )}
       </Container>
-  );
+    );
   }
- 
-};
-
+}
 
 export default App;

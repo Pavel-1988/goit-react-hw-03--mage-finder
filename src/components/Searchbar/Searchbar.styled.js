@@ -72,3 +72,5 @@ export const SearchInput = styled(Field)`
     font-size: 18px;
   }
 `;
+
+
