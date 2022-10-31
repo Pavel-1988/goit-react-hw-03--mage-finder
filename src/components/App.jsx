@@ -84,11 +84,11 @@ class App extends React.Component {
         {image.length > 0 && (
           <Container>
             <ImageGallery images={image} imgAlt={imgName} />
-            {status === 'pending' ? (
+            {status === 'pending' ? 
               <Loader />
-            ) : (
+             : 
               <Button onClick={this.loadMore} />
-            )}
+            }
           </Container>
         )}
       </Container>
