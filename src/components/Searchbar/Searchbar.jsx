@@ -16,6 +16,7 @@ const validationSchema = Yup.string({
 });
 
 class Searchbar extends React.Component {
+  
   handleSubmit = (values, { resetForm }) => {
     if (values.imgName.trim() === '') {
       return toast.error('Please enter your search query');

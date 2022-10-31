@@ -28,7 +28,7 @@ class App extends React.Component {
     }
   };
 
-   loadMore = () => {
+  loadMore = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
       status: 'pending',
