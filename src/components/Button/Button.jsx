@@ -2,11 +2,12 @@ import React from 'react';
 import { LoadMoreBtn } from './Button.styled';
 import PropTypes from 'prop-types'
 
- const Button = ({onClick}) => {
+ const Button = ({onClick}) => (
   <LoadMoreBtn  onClick={onClick} type='button'>
     Load more
-  </LoadMoreBtn>
-}
+   </LoadMoreBtn>
+ )
+
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
